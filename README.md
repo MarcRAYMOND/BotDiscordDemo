@@ -2,7 +2,7 @@
 
 Functionnality demo of this bot : \
  - Listen write channel , detect a combo of word(You can change for you regex) and for action generate image with a text(You can change text) \
- - Join your voice channel with /join and listen, warning dection in french fr-Fr you can change, after dectet yes bot use giphy sdk generate gif (Same you can change param lang ) \
+ - Join the bot  voice channel with /join and it listen you, warning dection is in french fr-Fr you can change, and after detect yes or ou the bot use giphy sdk generate gif (Same you can change param lang ) \
  - Database connexion, not use again \
  - And log generate to trace the application \
 

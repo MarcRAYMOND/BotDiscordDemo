@@ -1,18 +1,20 @@
+//init env
 require('dotenv').config()
+//innit constante use in the project
 const oDiscord = require('discord.js'); 
 const oMysql = require('mysql');
 const {prefix,token,tokengiphy,bddhost,bddname,bddlogin,bddpassword,idchannel} = require('./config.json');
 const oFs = require('fs');
+const GphApiClient = require('giphy-js-sdk-core')
 const oText2png = require('text2png');
 const oClientDiscord = new oDiscord.Client();
 const OGoogleSpeech = require('@google-cloud/speech')
 const { Transform } = require('stream')
 const sModeDebug=false;
-
-
-const GphApiClient = require('giphy-js-sdk-core')
 oGihpyClient = GphApiClient(tokengiphy)
 
+
+/* fonctionnality for tha audio */
 function convertBufferTo1Channel(buffer) {
   const convertedBuffer = Buffer.alloc(buffer.length / 2)
 
@@ -34,14 +36,14 @@ class ConvertTo1ChannelStream extends Transform {
   }
 }
 
-
+/* Launch bot  */
 oClientDiscord.on('ready', () => {
     console.log('Ready to work !');
     
 });
   
 
-
+//Database connexion
 /*  
 const oConnexion = oMysql.createConnection({
 host: bddhost,
@@ -57,6 +59,7 @@ console.log("Connected!");
 TO  DO : ACTION TO SAVE IN DATABASE
 */
 
+/* Display debug or not  */
 function fnDisplayLog(sText)
 {
   fnLogAction(sText,'Debug Data');
@@ -133,6 +136,8 @@ function fnGenerateimage(sType,sText){
     }));
     return sName;
 }
+
+/* Generate image and send to channel */
 function fnSendImage(sType,sText,oMessage){
     let sName=fnGenerateimage(sType,sText);
     let oAttachment = new oDiscord.MessageAttachment('./'+sName, sName);
@@ -150,6 +155,7 @@ function fnSendImage(sType,sText,oMessage){
         ;
 }
 
+/* Delete  image  */
 function fnDeleteFile(sName){
     
     oFs.unlink(sName, function (err) {
@@ -159,6 +165,7 @@ function fnDeleteFile(sName){
         
 }
 
+/* Function to dtect text */
 function fnDetectText(oMsg)
 {
         //TO DO mettre l'espression, un libellé et la reponse dans une bdd pour en rajotuer autant qu'on le souhaite
@@ -185,7 +192,7 @@ function fnDetectText(oMsg)
     }
 }
 
-
+/* Listen text for detect regex on the chanel */
 oClientDiscord.on('message', msg => {
 
     fnDetectText(msg);
@@ -193,6 +200,7 @@ oClientDiscord.on('message', msg => {
 
   oClientDiscord.login(token);
 
+  /* Listen text /join  on the channel to join the voice channel */
   oClientDiscord.on('message', async message => {
     // Voice only works in guilds, if the message does not come from a guild,
     // we ignore it
@@ -209,7 +217,7 @@ oClientDiscord.on('message', msg => {
     }
   });
 
-
+  /* Listen voice on voice channel */
   oClientDiscord.on('guildMemberSpeaking',async  (member, speaking) => {
     
     
