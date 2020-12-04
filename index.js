@@ -1,7 +1,7 @@
 require('dotenv').config()
 const oDiscord = require('discord.js'); 
 const oMysql = require('mysql');
-const {prefix,token,tokengiphy,bddhost,bddname,bddlogin,bddpassword} = require('./config.json');
+const {prefix,token,tokengiphy,bddhost,bddname,bddlogin,bddpassword,idchannel} = require('./config.json');
 const oFs = require('fs');
 const oText2png = require('text2png');
 const oClientDiscord = new oDiscord.Client();
@@ -201,7 +201,7 @@ oClientDiscord.on('message', msg => {
     if (message.content === '/join') {
       // Only try to join the sender's voice channel if they are in one themselves
       if (message.member.voice.channel) {
-        global.soChannel = message.guild.channels.cache.get('748546280728297580'); //General salon 
+        global.soChannel = message.guild.channels.cache.get(idchannel); //General salon 
         const connection = await message.member.voice.channel.join();
       } else {
         message.reply('You need to join a voice channel first!');
