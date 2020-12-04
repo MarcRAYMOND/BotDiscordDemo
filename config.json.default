@@ -1,0 +1,9 @@
+{
+    "prefix":"!",
+    "bddhost":"localhost",
+    "bddname":"discord",
+    "bddlogin":"discord",
+    "bddpassword":"XXXXXXXXXXXXXXXXXXX",
+    "token":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "tokengiphy":"XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+}
